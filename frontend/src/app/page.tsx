@@ -31,23 +31,22 @@ export default function HomePage() {
       <section className="container py-24 md:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-            Giải Captcha Thông Minh với{' '}
+            {t('landing.hero.title')}{' '}
             <span className="text-primary">AI</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground">
-            Nền tảng giải và huấn luyện captcha mạnh mẽ, sử dụng công nghệ OCR và 
-            Deep Learning tiên tiến. Tích hợp dễ dàng qua API.
+            {t('landing.hero.subtitle')}
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link href="/register">
               <Button size="lg" className="w-full sm:w-auto">
-                Bắt đầu miễn phí
+                {t('landing.hero.getStarted')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
             <Link href="/docs">
               <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                Xem tài liệu
+                {t('landing.hero.viewDocs')}
               </Button>
             </Link>
           </div>
@@ -58,10 +57,10 @@ export default function HomePage() {
       <section className="container py-24">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight">
-            Tính năng nổi bật
+            {t('landing.features.title')}
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Giải pháp toàn diện cho mọi nhu cầu xử lý captcha
+            {t('landing.features.subtitle')}
           </p>
         </div>
 
@@ -71,9 +70,9 @@ export default function HomePage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
               <Zap className="h-6 w-6 text-primary" />
             </div>
-            <h3 className="mt-4 text-xl font-semibold">Tốc độ cao</h3>
+            <h3 className="mt-4 text-xl font-semibold">{t('landing.features.speed.title')}</h3>
             <p className="mt-2 text-muted-foreground">
-              Xử lý captcha trong vài mili giây với công nghệ tối ưu hóa hiệu năng.
+              {t('landing.features.speed.description')}
             </p>
           </div>
 
@@ -82,9 +81,9 @@ export default function HomePage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
               <Brain className="h-6 w-6 text-primary" />
             </div>
-            <h3 className="mt-4 text-xl font-semibold">AI thông minh</h3>
+            <h3 className="mt-4 text-xl font-semibold">{t('landing.features.ai.title')}</h3>
             <p className="mt-2 text-muted-foreground">
-              Sử dụng mô hình Deep Learning tiên tiến với độ chính xác cao.
+              {t('landing.features.ai.description')}
             </p>
           </div>
 
@@ -93,9 +92,9 @@ export default function HomePage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
               <Code className="h-6 w-6 text-primary" />
             </div>
-            <h3 className="mt-4 text-xl font-semibold">API đơn giản</h3>
+            <h3 className="mt-4 text-xl font-semibold">{t('landing.features.api.title')}</h3>
             <p className="mt-2 text-muted-foreground">
-              Tích hợp dễ dàng với REST API và SDK cho nhiều ngôn ngữ.
+              {t('landing.features.api.description')}
             </p>
           </div>
 
@@ -104,9 +103,9 @@ export default function HomePage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
               <Shield className="h-6 w-6 text-primary" />
             </div>
-            <h3 className="mt-4 text-xl font-semibold">Bảo mật cao</h3>
+            <h3 className="mt-4 text-xl font-semibold">{t('landing.features.security.title')}</h3>
             <p className="mt-2 text-muted-foreground">
-              Mã hóa end-to-end, tuân thủ các tiêu chuẩn bảo mật quốc tế.
+              {t('landing.features.security.description')}
             </p>
           </div>
 
@@ -117,9 +116,9 @@ export default function HomePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
             </div>
-            <h3 className="mt-4 text-xl font-semibold">Thống kê chi tiết</h3>
+            <h3 className="mt-4 text-xl font-semibold">{t('landing.features.stats.title')}</h3>
             <p className="mt-2 text-muted-foreground">
-              Dashboard trực quan với biểu đồ và báo cáo chi tiết.
+              {t('landing.features.stats.description')}
             </p>
           </div>
 
@@ -130,9 +129,9 @@ export default function HomePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
             </div>
-            <h3 className="mt-4 text-xl font-semibold">Huấn luyện tùy chỉnh</h3>
+            <h3 className="mt-4 text-xl font-semibold">{t('landing.features.training.title')}</h3>
             <p className="mt-2 text-muted-foreground">
-              Tạo và huấn luyện mô hình riêng cho nhu cầu đặc thù của bạn.
+              {t('landing.features.training.description')}
             </p>
           </div>
         </div>
@@ -143,15 +142,15 @@ export default function HomePage() {
         <div className="container py-24">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight">
-              Sẵn sàng bắt đầu?
+              {t('landing.cta.title')}
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Đăng ký ngay để nhận 1000 requests miễn phí mỗi tháng.
+              {t('landing.cta.subtitle')}
             </p>
             <div className="mt-8">
               <Link href="/register">
                 <Button size="lg">
-                  Tạo tài khoản miễn phí
+                  {t('landing.cta.createAccount')}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>

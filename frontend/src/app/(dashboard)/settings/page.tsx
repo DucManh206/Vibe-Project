@@ -71,11 +71,11 @@ export default function SettingsPage() {
 
   const handleChangePassword = () => {
     if (passwords.new !== passwords.confirm) {
-      toast.error('Mật khẩu mới không khớp');
+      toast.error(tCommon('auth.passwordMismatch'));
       return;
     }
     if (passwords.new.length < 8) {
-      toast.error('Mật khẩu mới phải có ít nhất 8 ký tự');
+      toast.error(tCommon('auth.passwordTooShort'));
       return;
     }
     changePasswordMutation.mutate({
@@ -98,7 +98,7 @@ export default function SettingsPage() {
       <div>
         <h1 className="text-3xl font-bold">{t('title')}</h1>
         <p className="text-muted-foreground mt-1">
-          Quản lý tài khoản và tùy chỉnh ứng dụng
+          {t('description')}
         </p>
       </div>
 
@@ -131,7 +131,7 @@ export default function SettingsPage() {
               <div>
                 <h2 className="text-lg font-semibold">{t('profile')}</h2>
                 <p className="text-sm text-muted-foreground">
-                  Cập nhật thông tin tài khoản của bạn
+                  {t('profileDesc')}
                 </p>
               </div>
 
@@ -175,7 +175,7 @@ export default function SettingsPage() {
               <div>
                 <h2 className="text-lg font-semibold">{t('changePassword')}</h2>
                 <p className="text-sm text-muted-foreground">
-                  Đổi mật khẩu tài khoản của bạn
+                  {t('securityDesc')}
                 </p>
               </div>
 
@@ -235,35 +235,41 @@ export default function SettingsPage() {
               <div>
                 <h2 className="text-lg font-semibold">{t('language')}</h2>
                 <p className="text-sm text-muted-foreground">
-                  Chọn ngôn ngữ hiển thị
+                  {t('languageDesc')}
                 </p>
               </div>
 
               <div className="space-y-2 max-w-md">
                 <button
                   onClick={() => {
-                    // Language switching logic would go here
-                    toast.success('Đã chuyển sang Tiếng Việt');
+                    document.cookie = `NEXT_LOCALE=vi; path=/; max-age=31536000`;
+                    window.location.reload();
                   }}
-                  className="w-full flex items-center justify-between p-4 border rounded-lg hover:bg-muted transition-colors"
+                  className={`w-full flex items-center justify-between p-4 border rounded-lg hover:bg-muted transition-colors ${
+                    tCommon('appName') !== 'Captcha Platform' ? 'border-primary bg-primary/5' : ''
+                  }`}
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">🇻🇳</span>
                     <span>Tiếng Việt</span>
                   </div>
-                  <Check className="h-5 w-5 text-primary" />
+                  {tCommon('appName') !== 'Captcha Platform' && <Check className="h-5 w-5 text-primary" />}
                 </button>
 
                 <button
                   onClick={() => {
-                    toast.success('Switched to English');
+                    document.cookie = `NEXT_LOCALE=en; path=/; max-age=31536000`;
+                    window.location.reload();
                   }}
-                  className="w-full flex items-center justify-between p-4 border rounded-lg hover:bg-muted transition-colors"
+                  className={`w-full flex items-center justify-between p-4 border rounded-lg hover:bg-muted transition-colors ${
+                    tCommon('appName') === 'Captcha Platform' ? 'border-primary bg-primary/5' : ''
+                  }`}
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">🇺🇸</span>
                     <span>English</span>
                   </div>
+                  {tCommon('appName') === 'Captcha Platform' && <Check className="h-5 w-5 text-primary" />}
                 </button>
               </div>
             </div>
@@ -275,7 +281,7 @@ export default function SettingsPage() {
               <div>
                 <h2 className="text-lg font-semibold">{t('theme')}</h2>
                 <p className="text-sm text-muted-foreground">
-                  Chọn giao diện phù hợp với bạn
+                  {t('themeDesc')}
                 </p>
               </div>
 
@@ -334,16 +340,16 @@ export default function SettingsPage() {
               <div>
                 <h2 className="text-lg font-semibold">{t('notifications')}</h2>
                 <p className="text-sm text-muted-foreground">
-                  Quản lý thông báo
+                  {t('notificationsDesc')}
                 </p>
               </div>
 
               <div className="space-y-4 max-w-md">
                 <div className="flex items-center justify-between p-4 border rounded-lg">
                   <div>
-                    <p className="font-medium">Thông báo Email</p>
+                    <p className="font-medium">{t('notifEmail')}</p>
                     <p className="text-sm text-muted-foreground">
-                      Nhận email khi có cập nhật quan trọng
+                      {t('notifEmailDesc')}
                     </p>
                   </div>
                   <input type="checkbox" defaultChecked className="h-5 w-5" />
@@ -351,9 +357,9 @@ export default function SettingsPage() {
 
                 <div className="flex items-center justify-between p-4 border rounded-lg">
                   <div>
-                    <p className="font-medium">Thông báo Training</p>
+                    <p className="font-medium">{t('notifTraining')}</p>
                     <p className="text-sm text-muted-foreground">
-                      Nhận thông báo khi job training hoàn thành
+                      {t('notifTrainingDesc')}
                     </p>
                   </div>
                   <input type="checkbox" defaultChecked className="h-5 w-5" />
@@ -361,9 +367,9 @@ export default function SettingsPage() {
 
                 <div className="flex items-center justify-between p-4 border rounded-lg">
                   <div>
-                    <p className="font-medium">Cảnh báo bảo mật</p>
+                    <p className="font-medium">{t('notifSecurity')}</p>
                     <p className="text-sm text-muted-foreground">
-                      Nhận thông báo về hoạt động đáng ngờ
+                      {t('notifSecurityDesc')}
                     </p>
                   </div>
                   <input type="checkbox" defaultChecked className="h-5 w-5" />

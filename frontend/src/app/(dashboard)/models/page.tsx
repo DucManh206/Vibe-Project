@@ -81,7 +81,7 @@ export default function ModelsPage() {
         <div>
           <h1 className="text-3xl font-bold">{t('title')}</h1>
           <p className="text-muted-foreground mt-1">
-            Quản lý các model giải captcha
+            {t('description')}
           </p>
         </div>
         <Button onClick={() => setShowUploadModal(true)}>
@@ -98,14 +98,14 @@ export default function ModelsPage() {
       ) : models.length === 0 ? (
         <div className="text-center py-12 bg-card border rounded-lg">
           <Cpu className="h-12 w-12 mx-auto mb-4 text-muted-foreground opacity-50" />
-          <p className="text-muted-foreground">Chưa có model nào</p>
-          <Button 
-            variant="outline" 
+          <p className="text-muted-foreground">{t('noModels')}</p>
+          <Button
+            variant="outline"
             className="mt-4"
             onClick={() => setShowUploadModal(true)}
           >
             <Plus className="mr-2 h-4 w-4" />
-            Thêm model đầu tiên
+            {t('uploadFirst')}
           </Button>
         </div>
       ) : (
@@ -173,7 +173,7 @@ export default function ModelsPage() {
                 {!model.is_default && model.is_active && (
                   <Button variant="outline" size="sm" className="flex-1">
                     <Star className="mr-1 h-3 w-3" />
-                    Set Default
+                    {t('setDefault')}
                   </Button>
                 )}
                 {deleteConfirm === model.id ? (

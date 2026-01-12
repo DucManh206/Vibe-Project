@@ -117,8 +117,8 @@ export default function DashboardPage() {
             >
               <Image className="h-5 w-5 text-primary" />
               <div>
-                <p className="font-medium">Giải Captcha</p>
-                <p className="text-sm text-muted-foreground">Tải ảnh và giải captcha ngay</p>
+                <p className="font-medium">{t('quickSolve')}</p>
+                <p className="text-sm text-muted-foreground">{t('quickSolveDesc')}</p>
               </div>
             </a>
             <a
@@ -127,8 +127,8 @@ export default function DashboardPage() {
             >
               <Key className="h-5 w-5 text-primary" />
               <div>
-                <p className="font-medium">Quản lý API Keys</p>
-                <p className="text-sm text-muted-foreground">Tạo và quản lý API keys</p>
+                <p className="font-medium">{t('quickApiKeys')}</p>
+                <p className="text-sm text-muted-foreground">{t('quickApiKeysDesc')}</p>
               </div>
             </a>
             <a
@@ -137,8 +137,8 @@ export default function DashboardPage() {
             >
               <TrendingUp className="h-5 w-5 text-primary" />
               <div>
-                <p className="font-medium">Huấn luyện Model</p>
-                <p className="text-sm text-muted-foreground">Tạo model mới từ dữ liệu của bạn</p>
+                <p className="font-medium">{t('quickTraining')}</p>
+                <p className="text-sm text-muted-foreground">{t('quickTrainingDesc')}</p>
               </div>
             </a>
           </div>
@@ -179,9 +179,9 @@ export default function DashboardPage() {
           ) : (
             <div className="text-center py-8 text-muted-foreground">
               <Key className="h-12 w-12 mx-auto mb-3 opacity-50" />
-              <p>Chưa có API key nào</p>
+              <p>{t('noApiKeys')}</p>
               <a href="/api-keys" className="text-primary hover:underline text-sm">
-                Tạo API key đầu tiên
+                {t('createFirstApiKey')}
               </a>
             </div>
           )}

@@ -67,7 +67,15 @@
     "avgProcessingTime": "Thời gian xử lý TB",
     "activeModels": "Models đang hoạt động",
     "recentActivity": "Hoạt động gần đây",
-    "quickActions": "Thao tác nhanh"
+    "quickActions": "Thao tác nhanh",
+    "quickSolve": "Giải Captcha",
+    "quickSolveDesc": "Tải ảnh và giải captcha ngay",
+    "quickApiKeys": "Quản lý API Keys",
+    "quickApiKeysDesc": "Tạo và quản lý API keys",
+    "quickTraining": "Huấn luyện Model",
+    "quickTrainingDesc": "Tạo model mới từ dữ liệu của bạn",
+    "noApiKeys": "Chưa có API key nào",
+    "createFirstApiKey": "Tạo API key đầu tiên"
   },
   "captcha": {
     "title": "Giải Captcha",
@@ -85,7 +93,16 @@
     "solving": "Đang giải...",
     "solveError": "Không thể giải captcha",
     "invalidImage": "Ảnh không hợp lệ",
-    "imageTooLarge": "Ảnh quá lớn"
+    "imageTooLarge": "Ảnh quá lớn",
+    "description": "Tải ảnh captcha lên để nhận kết quả giải",
+    "autoSelect": "Tự động chọn",
+    "base64Placeholder": "data:image/png;base64,... hoặc raw base64",
+    "noImageSelected": "Tải ảnh captcha lên để bắt đầu",
+    "tips": "Mẹo sử dụng",
+    "tip1": "Kéo thả hoặc dán ảnh trực tiếp",
+    "tip2": "Hỗ trợ dán base64 từ clipboard",
+    "tip3": "Chọn model phù hợp để tăng độ chính xác",
+    "tip4": "Ảnh rõ nét sẽ cho kết quả tốt hơn"
   },
   "models": {
     "title": "Quản lý Models",
@@ -109,7 +126,11 @@
     "typeCnn": "CNN",
     "typeRnn": "RNN",
     "typeTransformer": "Transformer",
-    "typeEnsemble": "Ensemble"
+    "typeEnsemble": "Ensemble",
+    "description": "Quản lý các model giải captcha",
+    "noModels": "Chưa có model nào",
+    "uploadFirst": "Thêm model đầu tiên",
+    "setDefault": "Đặt mặc định"
   },
   "training": {
     "title": "Huấn luyện Model",
@@ -130,7 +151,14 @@
     "failed": "Thất bại",
     "cancelled": "Đã hủy",
     "startSuccess": "Đã bắt đầu huấn luyện",
-    "startError": "Không thể bắt đầu huấn luyện"
+    "startError": "Không thể bắt đầu huấn luyện",
+    "description": "Huấn luyện model mới từ dữ liệu của bạn",
+    "noJobs": "Chưa có job huấn luyện nào",
+    "startFirst": "Bắt đầu huấn luyện",
+    "pause": "Tạm dừng",
+    "cancel": "Hủy",
+    "datasetPlaceholder": "/path/to/dataset (tùy chọn)",
+    "datasetDesc": "Để trống để sử dụng dataset mặc định"
   },
   "apiKeys": {
     "title": "Quản lý API Keys",
@@ -155,7 +183,15 @@
     "deleteConfirm": "Bạn có chắc muốn xóa API key này?",
     "deleteSuccess": "Xóa API key thành công",
     "expiresInDays": "Hết hạn sau (ngày)",
-    "noExpiry": "Không hết hạn"
+    "noExpiry": "Không hết hạn",
+    "description": "Quản lý API keys để tích hợp vào ứng dụng của bạn",
+    "noApiKeys": "Chưa có API key nào",
+    "createFirst": "Tạo API key đầu tiên",
+    "neverUsed": "Chưa sử dụng",
+    "willExpireAt": "Key sẽ hết hạn vào {date}",
+    "rateLimitDesc": "Số requests tối đa mỗi phút",
+    "days": "{count} ngày",
+    "oneYear": "1 năm"
   },
   "logs": {
     "title": "Lịch sử xử lý",
@@ -189,7 +225,19 @@
     "updateError": "Cập nhật thất bại",
     "lightTheme": "Sáng",
     "darkTheme": "Tối",
-    "systemTheme": "Theo hệ thống"
+    "systemTheme": "Theo hệ thống",
+    "description": "Quản lý tài khoản và tùy chỉnh ứng dụng",
+    "profileDesc": "Cập nhật thông tin tài khoản của bạn",
+    "securityDesc": "Đổi mật khẩu tài khoản của bạn",
+    "languageDesc": "Chọn ngôn ngữ hiển thị",
+    "themeDesc": "Chọn giao diện phù hợp với bạn",
+    "notificationsDesc": "Quản lý thông báo",
+    "notifEmail": "Thông báo Email",
+    "notifEmailDesc": "Nhận email khi có cập nhật quan trọng",
+    "notifTraining": "Thông báo Training",
+    "notifTrainingDesc": "Nhận thông báo khi job training hoàn thành",
+    "notifSecurity": "Cảnh báo bảo mật",
+    "notifSecurityDesc": "Nhận thông báo về hoạt động đáng ngờ"
   },
   "errors": {
     "notFound": "Không tìm thấy trang",
@@ -203,12 +251,63 @@
     "networkError": "Lỗi kết nối",
     "networkErrorDesc": "Không thể kết nối đến máy chủ.",
     "goHome": "Về trang chủ",
-    "tryAgain": "Thử lại"
+    "tryAgain": "Thử lại",
+    "apiErrors": {
+      "validation_error": "Dữ liệu cung cấp không hợp lệ",
+      "user_exists": "Người dùng với email này đã tồn tại",
+      "invalid_credentials": "Email hoặc mật khẩu không đúng",
+      "user_inactive": "Tài khoản chưa được kích hoạt",
+      "invalid_token": "Phiên làm việc hết hạn, vui lòng đăng nhập lại",
+      "limit_exceeded": "Vượt quá giới hạn yêu cầu",
+      "not_found": "Không tìm thấy tài nguyên",
+      "internal_error": "Lỗi hệ thống nội bộ"
+    }
   },
   "footer": {
     "copyright": "© 2024 Captcha Platform. Bảo lưu mọi quyền.",
     "privacy": "Chính sách bảo mật",
     "terms": "Điều khoản sử dụng",
     "contact": "Liên hệ"
+  },
+  "landing": {
+    "hero": {
+      "title": "Giải Captcha Thông Minh với",
+      "subtitle": "Nền tảng giải và huấn luyện captcha mạnh mẽ, sử dụng công nghệ OCR và Deep Learning tiên tiến. Tích hợp dễ dàng qua API.",
+      "getStarted": "Bắt đầu miễn phí",
+      "viewDocs": "Xem tài liệu"
+    },
+    "features": {
+      "title": "Tính năng nổi bật",
+      "subtitle": "Giải pháp toàn diện cho mọi nhu cầu xử lý captcha",
+      "speed": {
+        "title": "Tốc độ cao",
+        "description": "Xử lý captcha trong vài mili giây với công nghệ tối ưu hóa hiệu năng."
+      },
+      "ai": {
+        "title": "AI thông minh",
+        "description": "Sử dụng mô hình Deep Learning tiên tiến với độ chính xác cao."
+      },
+      "api": {
+        "title": "API đơn giản",
+        "description": "Tích hợp dễ dàng với REST API và SDK cho nhiều ngôn ngữ."
+      },
+      "security": {
+        "title": "Bảo mật cao",
+        "description": "Mã hóa end-to-end, tuân thủ các tiêu chuẩn bảo mật quốc tế."
+      },
+      "stats": {
+        "title": "Thống kê chi tiết",
+        "description": "Dashboard trực quan với biểu đồ và báo cáo chi tiết."
+      },
+      "training": {
+        "title": "Huấn luyện tùy chỉnh",
+        "description": "Tạo và huấn luyện mô hình riêng cho nhu cầu đặc thù của bạn."
+      }
+    },
+    "cta": {
+      "title": "Sẵn sàng bắt đầu?",
+      "subtitle": "Đăng ký ngay để nhận 1000 requests miễn phí mỗi tháng.",
+      "createAccount": "Tạo tài khoản miễn phí"
+    }
   }
 }

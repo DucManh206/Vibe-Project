@@ -98,7 +98,7 @@ export default function ApiKeysPage() {
         <div>
           <h1 className="text-3xl font-bold">{t('title')}</h1>
           <p className="text-muted-foreground mt-1">
-            Quản lý API keys để tích hợp vào ứng dụng của bạn
+            {t('description')}
           </p>
         </div>
         <Button onClick={() => setShowCreateModal(true)}>
@@ -115,14 +115,14 @@ export default function ApiKeysPage() {
       ) : apiKeys.length === 0 ? (
         <div className="text-center py-12 bg-card border rounded-lg">
           <Key className="h-12 w-12 mx-auto mb-4 text-muted-foreground opacity-50" />
-          <p className="text-muted-foreground">Chưa có API key nào</p>
-          <Button 
-            variant="outline" 
+          <p className="text-muted-foreground">{t('noApiKeys')}</p>
+          <Button
+            variant="outline"
             className="mt-4"
             onClick={() => setShowCreateModal(true)}
           >
             <Plus className="mr-2 h-4 w-4" />
-            Tạo API key đầu tiên
+            {t('createFirst')}
           </Button>
         </div>
       ) : (
@@ -203,9 +203,9 @@ export default function ApiKeysPage() {
                 <div>
                   <p className="text-sm text-muted-foreground">{t('lastUsed')}</p>
                   <p className="font-medium">
-                    {apiKey.last_used_at 
-                      ? new Date(apiKey.last_used_at).toLocaleDateString('vi-VN')
-                      : 'Chưa sử dụng'
+                    {apiKey.last_used_at
+                      ? new Date(apiKey.last_used_at).toLocaleDateString()
+                      : t('neverUsed')
                     }
                   </p>
                 </div>
@@ -216,7 +216,7 @@ export default function ApiKeysPage() {
                 <div className="flex items-center gap-2 mt-4 p-3 bg-yellow-500/10 text-yellow-700 rounded-lg">
                   <AlertTriangle className="h-4 w-4" />
                   <span className="text-sm">
-                    Key sẽ hết hạn vào {new Date(apiKey.expires_at).toLocaleDateString('vi-VN')}
+                    {t('willExpireAt', { date: new Date(apiKey.expires_at).toLocaleDateString() })}
                   </span>
                 </div>
               )}
@@ -293,7 +293,7 @@ export default function ApiKeysPage() {
                       min={1}
                       max={1000}
                     />
-                    <p className="text-xs text-muted-foreground mt-1">Số requests tối đa mỗi phút</p>
+                    <p className="text-xs text-muted-foreground mt-1">{t('rateLimitDesc')}</p>
                   </div>
 
                   <div>
@@ -304,10 +304,10 @@ export default function ApiKeysPage() {
                       className="w-full px-3 py-2 bg-background border rounded-lg"
                     >
                       <option value={0}>{t('noExpiry')}</option>
-                      <option value={30}>30 ngày</option>
-                      <option value={90}>90 ngày</option>
-                      <option value={180}>180 ngày</option>
-                      <option value={365}>1 năm</option>
+                      <option value={30}>{t('days', { count: 30 })}</option>
+                      <option value={90}>{t('days', { count: 90 })}</option>
+                      <option value={180}>{t('days', { count: 180 })}</option>
+                      <option value={365}>{t('oneYear')}</option>
                     </select>
                   </div>
                 </div>

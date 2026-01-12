@@ -144,7 +144,7 @@ export default function TrainingPage() {
         <div>
           <h1 className="text-3xl font-bold">{t('title')}</h1>
           <p className="text-muted-foreground mt-1">
-            Huấn luyện model mới từ dữ liệu của bạn
+            {t('description')}
           </p>
         </div>
         <Button onClick={() => setShowNewJobModal(true)}>
@@ -161,14 +161,14 @@ export default function TrainingPage() {
       ) : jobs.length === 0 ? (
         <div className="text-center py-12 bg-card border rounded-lg">
           <TrendingUp className="h-12 w-12 mx-auto mb-4 text-muted-foreground opacity-50" />
-          <p className="text-muted-foreground">Chưa có job huấn luyện nào</p>
-          <Button 
-            variant="outline" 
+          <p className="text-muted-foreground">{t('noJobs')}</p>
+          <Button
+            variant="outline"
             className="mt-4"
             onClick={() => setShowNewJobModal(true)}
           >
             <Plus className="mr-2 h-4 w-4" />
-            Bắt đầu huấn luyện
+            {t('startFirst')}
           </Button>
         </div>
       ) : (
@@ -223,11 +223,11 @@ export default function TrainingPage() {
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">
                     <Pause className="mr-1 h-3 w-3" />
-                    Tạm dừng
+                    {t('pause')}
                   </Button>
                   <Button variant="outline" size="sm" className="text-destructive">
                     <X className="mr-1 h-3 w-3" />
-                    Hủy
+                    {t('cancel')}
                   </Button>
                 </div>
               )}
@@ -327,10 +327,10 @@ export default function TrainingPage() {
                   value={newJob.dataset_path}
                   onChange={(e) => setNewJob({ ...newJob, dataset_path: e.target.value })}
                   className="w-full px-3 py-2 bg-background border rounded-lg"
-                  placeholder="/path/to/dataset (optional)"
+                  placeholder={t('datasetPlaceholder')}
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Để trống để sử dụng dataset mặc định
+                  {t('datasetDesc')}
                 </p>
               </div>
             </div>

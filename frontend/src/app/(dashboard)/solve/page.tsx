@@ -135,7 +135,7 @@ export default function SolvePage() {
       <div>
         <h1 className="text-3xl font-bold">{t('title')}</h1>
         <p className="text-muted-foreground mt-1">
-          Tải ảnh captcha lên để nhận kết quả giải
+          {t('description')}
         </p>
       </div>
 
@@ -152,7 +152,7 @@ export default function SolvePage() {
               onChange={(e) => setSelectedModel(e.target.value)}
               className="w-full px-3 py-2 bg-background border rounded-lg focus:ring-2 focus:ring-primary"
             >
-              <option value="">Tự động chọn</option>
+              <option value="">{t('autoSelect')}</option>
               {models.map((model) => (
                 <option key={model.id} value={model.name}>
                   {model.name} ({model.type})
@@ -215,7 +215,7 @@ export default function SolvePage() {
               {t('pasteBase64')}
             </label>
             <textarea
-              placeholder="data:image/png;base64,... hoặc raw base64"
+              placeholder={t('base64Placeholder')}
               onChange={handleBase64Input}
               className="w-full h-24 px-3 py-2 bg-background border rounded-lg text-xs font-mono resize-none focus:ring-2 focus:ring-primary"
             />
@@ -299,19 +299,19 @@ export default function SolvePage() {
             ) : (
               <div className="text-center py-12 text-muted-foreground">
                 <ImageIcon className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p>Tải ảnh captcha lên để bắt đầu</p>
+                <p>{t('noImageSelected')}</p>
               </div>
             )}
           </div>
 
           {/* Usage Tips */}
           <div className="bg-card border rounded-lg p-4">
-            <h3 className="font-medium mb-2">Mẹo sử dụng</h3>
+            <h3 className="font-medium mb-2">{t('tips')}</h3>
             <ul className="text-sm text-muted-foreground space-y-1">
-              <li>• Kéo thả hoặc paste ảnh trực tiếp</li>
-              <li>• Hỗ trợ paste base64 từ clipboard</li>
-              <li>• Chọn model phù hợp để tăng độ chính xác</li>
-              <li>• Ảnh rõ nét sẽ cho kết quả tốt hơn</li>
+              <li>• {t('tip1')}</li>
+              <li>• {t('tip2')}</li>
+              <li>• {t('tip3')}</li>
+              <li>• {t('tip4')}</li>
             </ul>
           </div>
         </div>
