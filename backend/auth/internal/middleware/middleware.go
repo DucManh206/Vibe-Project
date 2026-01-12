@@ -5,6 +5,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/captcha-platform/auth/internal/config"
 	"github.com/captcha-platform/auth/pkg/jwt"
 	"github.com/captcha-platform/auth/pkg/logger"
 
@@ -54,7 +55,7 @@ func RequestID() gin.HandlerFunc {
 }
 
 // CORS returns a middleware that handles CORS
-func CORS(cfg CORSConfig) gin.HandlerFunc {
+func CORS(cfg config.CORSConfig) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		origin := c.GetHeader("Origin")
 
@@ -84,13 +85,6 @@ func CORS(cfg CORSConfig) gin.HandlerFunc {
 
 		c.Next()
 	}
-}
-
-// CORSConfig holds CORS configuration
-type CORSConfig struct {
-	AllowedOrigins []string
-	AllowedMethods []string
-	AllowedHeaders []string
 }
 
 // AuthRequired returns a middleware that requires JWT authentication

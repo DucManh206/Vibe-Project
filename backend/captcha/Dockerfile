@@ -3,30 +3,29 @@
 # ===========================================
 
 # Build stage
-FROM rust:1.75-alpine AS builder
+FROM rust:1.91-slim-bookworm AS builder
 
 WORKDIR /app
 
 # Install build dependencies
-RUN apk add --no-cache \
-    musl-dev \
-    pkgconfig \
-    openssl-dev \
-    openssl-libs-static \
-    tesseract-ocr-dev \
-    leptonica-dev \
+RUN apt-get update && apt-get install -y \
+    pkg-config \
+    libssl-dev \
+    libtesseract-dev \
+    libleptonica-dev \
     clang \
-    llvm \
+    libclang-dev \
     cmake \
     make \
-    g++
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
 
 # Create a new empty shell project
 RUN USER=root cargo new --bin captcha-service
 WORKDIR /app/captcha-service
 
 # Copy manifests
-COPY Cargo.toml ./
+COPY Cargo.toml Cargo.lock ./
 
 # Build dependencies only (for caching)
 RUN cargo build --release 2>/dev/null || true
@@ -41,17 +40,18 @@ RUN cargo build --release
 # ===========================================
 # Development stage
 # ===========================================
-FROM rust:1.75-alpine AS development
+FROM rust:1.91-slim-bookworm AS development
 
 WORKDIR /app
 
-RUN apk add --no-cache \
-    musl-dev \
-    pkgconfig \
-    openssl-dev \
-    tesseract-ocr-dev \
-    tesseract-ocr-data-eng \
-    leptonica-dev
+RUN apt-get update && apt-get install -y \
+    pkg-config \
+    libssl-dev \
+    libtesseract-dev \
+    libleptonica-dev \
+    tesseract-ocr \
+    tesseract-ocr-eng \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install cargo-watch for hot reload
 RUN cargo install cargo-watch
@@ -63,22 +63,21 @@ CMD ["cargo", "watch", "-x", "run"]
 # ===========================================
 # Production stage
 # ===========================================
-FROM alpine:3.19 AS production
+FROM debian:bookworm-slim AS production
 
 WORKDIR /app
 
 # Install runtime dependencies
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
     ca-certificates \
     tzdata \
     wget \
     tesseract-ocr \
-    tesseract-ocr-data-eng \
-    leptonica \
-    libgcc
+    tesseract-ocr-eng \
+    && rm -rf /var/lib/apt/lists/*
 
 # Create non-root user
-RUN adduser -D -g '' appuser
+RUN adduser --disabled-password --gecos "" appuser
 
 # Create models directory
 RUN mkdir -p /app/models && chown -R appuser:appuser /app/models
