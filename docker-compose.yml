@@ -1,0 +1,179 @@
+# ===========================================
+# CAPTCHA PLATFORM - Docker Compose (Development)
+# ===========================================
+# Usage: docker-compose up -d
+
+version: '3.8'
+
+services:
+  # ===========================================
+  # Database Services
+  # ===========================================
+  mysql:
+    image: mysql:8.0
+    container_name: captcha-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-captcha_platform}
+      MYSQL_USER: ${DB_USER:-captcha_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-captcha_password}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - captcha-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: captcha-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redispassword}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - captcha-network
+
+  # ===========================================
+  # Backend Services
+  # ===========================================
+  gateway:
+    build:
+      context: ./backend/gateway
+      dockerfile: Dockerfile
+    container_name: captcha-gateway
+    restart: unless-stopped
+    environment:
+      - GATEWAY_PORT=${GATEWAY_PORT:-8080}
+      - GATEWAY_ENV=${GATEWAY_ENV:-development}
+      - AUTH_SERVICE_URL=http://auth:8081
+      - CAPTCHA_SERVICE_URL=http://captcha:8082
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-redispassword}
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key-min-32-characters-long}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000}
+      - RATE_LIMIT_REQUESTS=${RATE_LIMIT_REQUESTS:-100}
+      - RATE_LIMIT_WINDOW_SECONDS=${RATE_LIMIT_WINDOW_SECONDS:-60}
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
+    ports:
+      - "${GATEWAY_PORT:-8080}:8080"
+    depends_on:
+      redis:
+        condition: service_healthy
+      auth:
+        condition: service_started
+      captcha:
+        condition: service_started
+    networks:
+      - captcha-network
+
+  auth:
+    build:
+      context: ./backend/auth
+      dockerfile: Dockerfile
+    container_name: captcha-auth
+    restart: unless-stopped
+    environment:
+      - AUTH_SERVICE_PORT=${AUTH_SERVICE_PORT:-8081}
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=${DB_NAME:-captcha_platform}
+      - DB_USER=${DB_USER:-captcha_user}
+      - DB_PASSWORD=${DB_PASSWORD:-captcha_password}
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key-min-32-characters-long}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN:-24h}
+      - JWT_REFRESH_EXPIRES_IN=${JWT_REFRESH_EXPIRES_IN:-7d}
+      - BCRYPT_COST=${BCRYPT_COST:-12}
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
+    ports:
+      - "${AUTH_SERVICE_PORT:-8081}:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - captcha-network
+
+  captcha:
+    build:
+      context: ./backend/captcha
+      dockerfile: Dockerfile
+    container_name: captcha-service
+    restart: unless-stopped
+    environment:
+      - CAPTCHA_SERVICE_PORT=${CAPTCHA_SERVICE_PORT:-8082}
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=${DB_NAME:-captcha_platform}
+      - DB_USER=${DB_USER:-captcha_user}
+      - DB_PASSWORD=${DB_PASSWORD:-captcha_password}
+      - MODELS_PATH=/app/models
+      - MAX_IMAGE_SIZE_MB=${MAX_IMAGE_SIZE_MB:-10}
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
+    ports:
+      - "${CAPTCHA_SERVICE_PORT:-8082}:8082"
+    volumes:
+      - models_data:/app/models
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - captcha-network
+
+  # ===========================================
+  # Frontend Service
+  # ===========================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    container_name: captcha-frontend
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:${GATEWAY_PORT:-8080}/api
+      - NEXT_PUBLIC_APP_NAME=${NEXT_PUBLIC_APP_NAME:-Captcha Platform}
+      - NEXT_PUBLIC_DEFAULT_LOCALE=${NEXT_PUBLIC_DEFAULT_LOCALE:-vi}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - gateway
+    networks:
+      - captcha-network
+
+# ===========================================
+# Networks
+# ===========================================
+networks:
+  captcha-network:
+    driver: bridge
+
+# ===========================================
+# Volumes
+# ===========================================
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+  models_data:
+    driver: local

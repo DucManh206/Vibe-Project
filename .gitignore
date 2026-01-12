@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+vendor/
+target/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Database
+*.sql.bak
+
+# Docker
+docker-compose.override.yml
+
+# Rust
+target/
+Cargo.lock
+**/*.rs.bk
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# ML Models (large files)
+*.onnx
+*.pb
+*.h5
+*.pkl
+*.pt
+*.pth
+!models/.gitkeep
+
+# Secrets
+*.pem
+*.key
+secrets/
