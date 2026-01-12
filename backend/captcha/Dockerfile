@@ -26,7 +26,7 @@ RUN USER=root cargo new --bin captcha-service
 WORKDIR /app/captcha-service
 
 # Copy manifests
-COPY Cargo.toml Cargo.lock ./
+COPY Cargo.toml ./
 
 # Build dependencies only (for caching)
 RUN cargo build --release 2>/dev/null || true
